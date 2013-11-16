@@ -39,13 +39,16 @@ class LessonDialog < Gtk::Dialog
         savebutton.set_size_request 80, 35
         cancelbutton = Gtk::Button.new "Cancel"
         cancelbutton.set_size_request 80, 35
-        colorbutton = Gtk::Button.new "Color"
+        colorbutton = Gtk::ColorButton.new
         colorbutton.set_size_request 80, 35
 
         @buttonbar.add savebutton
         @buttonbar.add cancelbutton
         @buttonbar.add colorbutton
 
+        colorbutton.signal_connect('color_set') do |w|
+          sender.modify_bg(Gtk::STATE_NORMAL, w.color)
+        end
 
         self.vbox.add @buttonbar
         
